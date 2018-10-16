@@ -62,9 +62,12 @@ func TestVaultPKIProvider(t *testing.T) {
 	prov.BindTLSConfig(tls)
 
 	cert0, err := tls.GetCertificate(nil)
+	if err != nil {
+		t.Fatalf("failed to get certificate 0: %v", err)
+	}
 	cert1, err := tls.GetCertificate(nil)
 	if err != nil {
-		t.Fatalf("failed to get certificate: %v", err)
+		t.Fatalf("failed to get certificate 1: %v", err)
 	}
 	if cert0 == nil {
 		t.Fatalf("certificate is nil")
@@ -75,6 +78,9 @@ func TestVaultPKIProvider(t *testing.T) {
 
 	time.Sleep(2 * time.Second)
 	cert2, err := tls.GetCertificate(nil)
+	if err != nil {
+		t.Fatalf("failed to get certificate 2: %v", err)
+	}
 	if cert0 == cert2 {
 		t.Errorf("certificate not updated in time")
 	}
