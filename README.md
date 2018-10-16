@@ -18,11 +18,12 @@ import (
 
 func main() {
 	// Create and configure Vault PKI Provider config
-	cfg := vac.DefaultVaultPKIConfig
-	cfg.CN = "example.org"
-	cfg.AdvertisedIPs = []string{"127.0.0.1", "192.168.1.1"}
-	cfg.Role = "example"
-	cfg.Token = "example-token"
+	cfg := vac.VaultPKIConfig{
+		Token:         "example-token",
+		Role:          "example",
+		CN:            "example.org",
+		AdvertisedIPs: []string{"127.0.0.1", "192.168.1.1"},
+	}
 
 	// Create provider from config and context
 	ctx := context.Background()
@@ -36,4 +37,5 @@ func main() {
 	ln, _ := tls.Listen("tcp", ":443", config)
 	defer ln.Close()
 }
+
 ```

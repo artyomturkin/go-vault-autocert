@@ -51,16 +51,21 @@ type VaultPKIConfig struct {
 	RetryDelay    time.Duration
 }
 
-// DefaultVaultPKIConfig default configuration
-var DefaultVaultPKIConfig = VaultPKIConfig{
-	Address:       "http://localhost:8200",
-	Path:          "pki",
-	RenewModifier: 0.95,
-	RetryDelay:    time.Second * 30,
-}
-
 // NewVaultPKIProvider setup new certificate provider with Vault PKI Backend
 func NewVaultPKIProvider(ctx context.Context, c VaultPKIConfig) (Provider, error) {
+	if c.Address == "" {
+		c.Address = "http://localhost:8200"
+	}
+	if c.Path == "" {
+		c.CN = "pki"
+	}
+	if c.RenewModifier == 0 {
+		c.RenewModifier = 0.95
+	}
+	if c.RetryDelay == 0 {
+		c.RetryDelay = time.Second * 30
+	}
+
 	p := &pki{}
 	p.ctx = ctx
 
