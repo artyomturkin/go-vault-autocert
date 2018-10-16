@@ -1,4 +1,7 @@
 # Hashicorp Vault Automatic Certificates
+
+[![Go Report Card](https://goreportcard.com/badge/github.com/artyomturkin/go-vault-autocert)](https://goreportcard.com/report/github.com/artyomturkin/go-vault-autocert)
+
 Go package to automatically create and refresh tls.Config certificates using Hashicorp Vault PKI backend
 
 ## Usage example
